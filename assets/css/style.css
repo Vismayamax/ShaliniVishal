@@ -1,11 +1,14 @@
 /*===============================================
-Template Name: Lovebirds - Wedding Planner and Photography HTML5 Template
-Author:  https://themeforest.net/user/dreamit-solution
-Description: Description
-Version: 1.0.0
-Text Domain: lovebird
-Tags:   bride, couple, groom, indain weeding, invitation, muslim wedding, responsive, rsvp, wedding, wedding agency, wedding html template, wedding invitation, wedding one page, wedding planner, wedding website
+Vismayamax - Wedding Invitation
 ================================================*/
+
+/* Global overflow fix — prevents AOS slide animations from creating horizontal scrollbar */
+html,
+body {
+    overflow-x: hidden;
+}
+
+
 
 /*TABLE OF CONTENTS*/
 
