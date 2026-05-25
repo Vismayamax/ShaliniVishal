@@ -47,9 +47,327 @@
     <link rel="stylesheet" href="assets/css/swiper-bundle.css" />
     <!-- modernizr js -->
     <script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <style>
+            /* Full page popup */
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(assets/images/home-1/main-popup.png);
+      background-position: center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: all 0.5s ease;
+      transform: scale(1);
+      opacity: 1;
+    }
+    #popup::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:url(assets/images/home-1/main-popup1.png) center no-repeat;
+  background-size:cover;
+
+  pointer-events:none;
+}
+  /* Burst Out Animation */
+  .burst-out {
+    animation: burstOut 0.7s forwards ease-in;
+  }
+
+  @keyframes burstOut {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    40% {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+      filter: blur(12px);
+    }
+  }
+    /* Center button */
+    #popup button {
+      border: none;
+background: transparent;
+    }
+
+
+
+
+
+
+      #seal {
+
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    #seal svg {
+      width: 100%; height: 100%;
+      transition: transform 0.3s ease;
+      opacity: 0.05;
+      scale: 2.0;
+      filter:
+        drop-shadow(0 4px 20px rgba(232,121,158,0))
+        drop-shadow(0 0 8px rgba(74,153,112,0));
+    }
+
+    #seal:hover svg { transform: scale(1.06); }
+    #seal:active svg { transform: scale(0.95); }
+
+    /* Spinning rings */
+    .spin-cw  { animation: spinCW  20s linear infinite; transform-origin: 120px 120px; }
+    .spin-ccw { animation: spinCCW 28s linear infinite; transform-origin: 120px 120px; }
+
+    @keyframes spinCW  { to { transform: rotate(360deg);  } }
+    @keyframes spinCCW { to { transform: rotate(-360deg); } }
+
+    /* Orb pulse */
+    .orb-pulse {
+        position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      pointer-events: none;
+      gap: 3px;
+    }
+
+.orb-pulse img{
+    height: 120px;
+}
+
+@media (min-width:768px){
+    .orb-pulse img{
+        height: 200px;
+    }
+}
+    @keyframes orbPulse { 0%,100%{opacity:0.9; transform:scale(1);} 50%{opacity:1; transform:scale(1.05);} }
+
+        /* Click hint */
+    .hint {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      pointer-events: none;
+      gap: 3px;
+    }
+    .hint-text {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(8px, 2vw, 10px);
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      animation: blink 2.8s ease-in-out infinite;
+    }
+    .hint-arrow {
+      font-size: 13px;
+      color: var(--green-mid);
+      animation: arrowBounce 1.7s ease-in-out infinite;
+      display: block;
+    }
+    @keyframes blink      { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+    @keyframes arrowBounce{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);} }
+
+    </style>
 </head>
 
 <body>
+      <!-- Popup -->
+  <div id="popup">
+    <a onclick="closePopup()">
+          <div id="seal">
+    <!-- Mandala seal -->
+    <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="orbG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#ffffff"/>
+          <stop offset="40%"  stop-color="#f5b8cc"/>
+          <stop offset="100%" stop-color="#e8799e"/>
+        </radialGradient>
+        <radialGradient id="bgG" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#fde8f0" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#fde8f0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Bg glow -->
+      <circle cx="120" cy="120" r="115" fill="url(#bgG)"/>
+
+      <!-- Outermost ring of leaves - spins CW -->
+      <g class="spin-cw">
+        <g fill="none" stroke="#e8799e" stroke-width="1" opacity="0.45">
+          <!-- 16 outer petals -->
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(0 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(22.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(45 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(67.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(90 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(112.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(135 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(157.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(180 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(202.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(225 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(247.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(270 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(292.5 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(315 120 120)"/>
+          <ellipse cx="120" cy="16" rx="7" ry="18" transform="rotate(337.5 120 120)"/>
+        </g>
+        <!-- Green tiny dots on outer -->
+        <g fill="#4a9970" opacity="0.5">
+          <circle cx="120" cy="30" r="2" transform="rotate(11.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(33.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(56.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(78.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(101.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(123.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(146.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(168.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(191.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(213.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(236.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(258.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(281.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(303.75 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(326.25 120 120)"/>
+          <circle cx="120" cy="30" r="2" transform="rotate(348.75 120 120)"/>
+        </g>
+      </g>
+
+      <!-- Second ring - spins CCW -->
+      <g class="spin-ccw">
+        <g fill="rgba(245,184,204,0.2)" stroke="#c0507a" stroke-width="1.2" opacity="0.7">
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(0 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(30 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(60 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(90 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(120 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(150 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(180 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(210 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(240 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(270 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(300 120 120)"/>
+          <ellipse cx="120" cy="34" rx="6" ry="16" transform="rotate(330 120 120)"/>
+        </g>
+      </g>
+
+      <!-- Static decorative rings -->
+      <circle cx="120" cy="120" r="96"  fill="none" stroke="#f5b8cc" stroke-width="0.7" opacity="0.5"/>
+      <circle cx="120" cy="120" r="82"  fill="none" stroke="#e8799e" stroke-width="0.7" stroke-dasharray="4 4" opacity="0.45"/>
+      <circle cx="120" cy="120" r="68"  fill="none" stroke="#85c4a0" stroke-width="0.8" opacity="0.5"/>
+      <circle cx="120" cy="120" r="54"  fill="none" stroke="#c0507a" stroke-width="0.6" opacity="0.4"/>
+      
+      <!-- Middle petal ring (static) -->
+      <g fill="rgba(232,121,158,0.18)" stroke="#e8799e" stroke-width="1" opacity="0.85">
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(0 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(45 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(90 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(135 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(180 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(225 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(270 120 120)"/>
+        <ellipse cx="120" cy="62" rx="6" ry="14" transform="rotate(315 120 120)"/>
+      </g>
+
+      <!-- Green leaf accents -->
+      <g fill="rgba(74,153,112,0.3)" stroke="#4a9970" stroke-width="0.8" opacity="0.7">
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(22.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(67.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(112.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(157.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(202.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(247.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(292.5 120 120)"/>
+        <ellipse cx="120" cy="76" rx="4" ry="9" transform="rotate(337.5 120 120)"/>
+      </g>
+
+      <!-- Inner ring dots -->
+      <g fill="#c0507a" opacity="0.6">
+        <circle cx="120" cy="88" r="2" transform="rotate(0 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(30 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(60 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(90 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(120 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(150 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(180 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(210 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(240 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(270 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(300 120 120)"/>
+        <circle cx="120" cy="88" r="2" transform="rotate(330 120 120)"/>
+      </g>
+      <!-- green dots offset -->
+      <g fill="#4a9970" opacity="0.5">
+        <circle cx="120" cy="86" r="1.5" transform="rotate(15 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(45 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(75 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(105 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(135 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(165 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(195 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(225 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(255 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(285 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(315 120 120)"/>
+        <circle cx="120" cy="86" r="1.5" transform="rotate(345 120 120)"/>
+      </g>
+
+      <!-- Center orb -->
+      <!-- <circle class="orb-pulse" cx="120" cy="120" r="28" fill="url(#orbG)"/>
+      <circle cx="120" cy="120" r="24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+      <circle cx="120" cy="120" r="16" fill="rgba(255,255,255,0.25)"/> -->
+      <!-- Heart shape in center -->
+      <path d="M120 128 C112 120, 104 112, 104 105 C104 99, 108 95, 112 95 C115 95, 118 97, 120 100 C122 97, 125 95, 128 95 C132 95, 136 99, 136 105 C136 112, 128 120, 120 128 Z" fill="rgba(255,255,255,0.5)" stroke="rgba(255,255,255,0.8)" stroke-width="0.5"/>
+    </svg>
+    <div class="orb-pulse">
+        <img src="assets/images/home-1/seal.png" alt="">
+    </div>
+    <!-- <div class="hint">
+      <span class="hint-arrow">↓</span>
+      <span class="hint-text">Open</span>
+    </div> -->
+  </div>
+    </a>
+  </div>
+
+  <script>
+  // Disable page scroll initially
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+
+  function closePopup() {
+    const popup = document.getElementById("popup");
+
+    // Add bursting animation
+    popup.classList.add("burst-out");
+
+    // Hide after animation
+    setTimeout(() => {
+      popup.style.display = "none";
+
+      // Enable scroll again
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    }, 700);
+  }
+  </script>
     <!-- loder -->
     <div id="loading">
         <div id="loading-center">
